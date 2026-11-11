@@ -1,0 +1,88 @@
+name: "Owner issue / warranty case"
+description: "Submit a documented Honda ZR-V or equivalent HR-V issue for review and possible inclusion in the index"
+title: "[Owner case] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping document Honda ZR-V ownership issues.
+        Please share **public source links** or your own observations. Never post your full VIN, plate number, phone number, address, or other personal information.
+        A report is **not** an official Honda defect finding or warranty approval. Site entries are reviewed and added manually.
+  - type: dropdown
+    id: model
+    attributes:
+      label: Vehicle / market variant
+      description: Choose the closest model.
+      options:
+        - "Honda ZR-V 1.5 Turbo petrol (GCC)"
+        - "Honda ZR-V 1.5 Turbo petrol (Japan)"
+        - "Honda ZR-V / 致在 1.5T (China)"
+        - "Honda HR-V 1.5T (Dongfeng China)"
+        - "Honda HR-V 2023+ 2.0 (North America)"
+        - "Honda ZR-V e:HEV (other market)"
+        - "Other / not sure"
+    validations:
+      required: true
+  - type: input
+    id: country
+    attributes:
+      label: Country / market
+      placeholder: "Saudi Arabia, Japan, Australia..."
+    validations:
+      required: true
+  - type: input
+    id: model-year
+    attributes:
+      label: Model year (optional)
+      placeholder: "2025"
+  - type: dropdown
+    id: issue
+    attributes:
+      label: Issue category
+      options:
+        - "Windshield upper molding / rubber"
+        - "Paint / clear coat"
+        - "Electric power steering (EPS)"
+        - "Headlight internal streaks"
+        - "Power-folding mirrors"
+        - "Seat upholstery"
+        - "Tailgate damper / noise"
+        - "B-pillar rattles"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Description and symptoms
+      description: Describe what happened, mileage if known, and how it was diagnosed. Do not include private identifiers.
+      placeholder: "Symptom, when noticed, mileage, dealer finding..."
+    validations:
+      required: true
+  - type: dropdown
+    id: warranty-outcome
+    attributes:
+      label: Dealer / warranty outcome
+      options:
+        - "Not inspected by dealer"
+        - "Warranty repair approved and completed"
+        - "Warranty approved; awaiting repair"
+        - "Warranty denied"
+        - "Dealer repair completed; payment/coverage unknown"
+        - "Official recall repair"
+        - "Unknown"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public source links / photo links
+      description: Original forum post, official bulletin, and/or your own publicly shared photographs. Add a date if possible.
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context (optional)
+      description: Anything relevant about engine/trim differences or reported repairs.
