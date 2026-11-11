@@ -102,6 +102,7 @@ if (typeof document !== 'undefined') (() => {
       try {
         window.google.search.cse.element.render({ div:'pseResults', tag:'searchresults-only', gname:'zrv' });
         ready = true; translate();
+        if (submitted) $("engineForm").requestSubmit();
       } catch { failed = true; translate(); }
     }};
     const script = document.createElement('script'); script.async = true;
@@ -112,3 +113,4 @@ if (typeof document !== 'undefined') (() => {
   }
   translate();
 })();
+
