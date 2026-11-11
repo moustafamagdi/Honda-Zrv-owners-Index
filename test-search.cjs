@@ -1,0 +1,34 @@
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const vm = require('node:vm');
+const search = require('./search.js');
+const html = fs.readFileSync('index.html', 'utf8');
+const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+inline.forEach(js => new vm.Script(js));
+const sources = JSON.parse(html.match(/const SOURCES=(\[.*?\]);/s)[1]);
+const scopes = search.scopes(sources);
+assert.equal(sources.length, 31);
+assert(!scopes.includes('www.reddit.com'));
+assert(scopes.includes('www.reddit.com/r/HRV/'));
+assert(scopes.includes('minkara.carview.co.jp'));
+const urls = search.links('مطاط الزجاج ゴム paint', 'zrv', scopes, 'ar');
+assert.equal(urls.length, Math.ceil(scopes.length / 3));
+const found = [];
+for (const item of urls) {
+  const u = new URL(item.url);
+  assert.equal(u.origin, 'https://www.google.com');
+  assert.equal(u.searchParams.get('hl'), 'ar');
+  const q = u.searchParams.get('q');
+  assert(q.includes('"مطاط"') && q.includes('"ゴム"'));
+  assert(item.scopes.length <= 3);
+  item.scopes.forEach(s => { assert(q.includes('site:' + s)); found.push(s); });
+}
+assert.deepEqual(found, scopes);
+assert.equal(search.terms('!!!', 'zrv'), '');
+assert(!search.terms('paint OR site:evil.com', 'zrv').includes('site:evil.com'));
+assert(search.terms('rubber', 'hrv').startsWith('("HR-V" OR "HRV")'));
+assert.equal(search.links('paint', 'zrv', [scopes[0]], 'en').length, 1);
+const patterns = scopes.map(s => s + (s.endsWith('/') ? '*' : '/*')).join('\n') + '\n';
+if (process.argv.includes('--write-sites')) fs.writeFileSync('search-sites.txt', patterns);
+else assert.equal(fs.readFileSync('search-sites.txt', 'utf8'), patterns, 'Regenerate inclusion list after changing SOURCES');
+console.log(`PASS: 31 original sources; ${scopes.length} scopes; ${urls.length} fallback groups; Unicode, restrictions, model focus and inline syntax.`);

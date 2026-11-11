@@ -23,6 +23,7 @@ dialog{border:1px solid var(--line);border-radius:16px;padding:25px;max-width:mi
 @media print{.issue-tools,#newCaseLink,nav,.top-actions,.toolbelt,.filter-row,.cardactions,.query-card .btn,.results-bar,.toast,dialog{display:none!important}body{background:#fff;color:#111}.hero{padding:14px 0}.callout,.card,.info{break-inside:avoid;box-shadow:none} .cards{grid-template-columns:1fr 1fr}.card:after{content:attr(data-url);display:block;direction:ltr;text-align:left;unicode-bidi:plaintext;color:#666;font-size:9px;overflow-wrap:anywhere}section{margin-top:18px}}
 html[lang="en"] body{font-family:"Segoe UI",Arial,Tahoma,sans-serif}
 </style>
+<link rel="stylesheet" href="search.css">
 </head>
 <body>
 <div class="topline"></div>
@@ -35,8 +36,9 @@ html[lang="en"] body{font-family:"Segoe UI",Arial,Tahoma,sans-serif}
     <div class="stats"><div class="stat"><strong id="totalN">—</strong><span>رابطًا مفهرسًا</span></div><div class="stat"><strong>6</strong><span>مناطق بحث</span></div><div class="stat"><strong>5+</strong><span>لغات محتوى</span></div><div class="stat"><strong id="favCount">0</strong><span>في المفضلة</span></div></div>
   </div>
 </header>
-<nav><div class="wrap nav-inner"><a href="#directory">فهرس الروابط</a><a href="#car-guide">تطابق الموديلات</a><a href="#issues">الأعطال والضمان</a><a href="#queries">عبارات البحث</a><a href="#guide">كيف تستخدم المصادر؟</a></div></nav>
+<nav><div class="wrap nav-inner"><a href="#directory">فهرس الروابط</a><a href="#car-guide">تطابق الموديلات</a><a href="#issues">الأعطال والضمان</a><a href="#queries">عبارات البحث</a><a href="#guide">كيف تستخدم المصادر؟</a><a href="#zr-v-search" id="searchNav">محرك بحث ZR-V</a></div></nav>
 <main class="wrap">
+<section id="zr-v-search" aria-labelledby="engineTitle"><div class="section-heading"><h2 id="engineTitle"></h2></div><div class="callout"><p id="engineIntro"></p><p id="engineStatus" role="status"></p><form id="engineForm"><label for="engineQuery" id="queryLabel"></label><input class="field" id="engineQuery" required maxlength="120" dir="auto"><div class="engine-controls"><div><label for="engineModel" id="modelLabel"></label><select class="field" id="engineModel"><option value="zrv">ZR-V / ZRV / 致在</option><option value="hrv">HR-V / HRV (2023+)</option></select></div><div><label for="engineScope" id="scopeLabel"></label><select class="field" id="engineScope"></select></div><button class="btn btn-primary" id="engineSubmit" type="submit"></button></div></form><p id="engineCaution"></p><details id="fallbackPanel"><summary id="fallbackTitle"></summary><div id="engineLinks" class="service-links" aria-live="polite"></div></details><div id="pseResults"></div><details><summary id="scopeSummary"></summary><p id="scopeNote"></p><ul id="scopeList"></ul><a href="search-sites.txt" id="scopeDownload" download></a></details><p><a href="SEARCH_SETUP.md" id="engineSetup"></a></p></div></section>
 <section id="car-guide" class="callout" aria-labelledby="car-guide-title">
   <h3 id="car-guide-title">كيف تميز نسخة البنزين المطابقة لسيارتك؟</h3>
   <p><strong>الأولوية:</strong> ZR-V الخليجية 1.5 Turbo CVT، ثم ZR-V اليابانية والصينية البنزين، ثم Dongfeng HR-V الصينية 1.5T. أما HR-V الأمريكية 2023+ فتشترك في عائلة الهيكل، لكن محرك 2.0 مختلف. وتجنّب الخلط مع HR-V / Vezel العالمية الأصغر.</p>
@@ -456,5 +458,7 @@ async function importData(e){
 init();
 
 </script>
+<script src="search-config.js"></script>
+<script src="search.js"></script>
 </body>
 </html>
